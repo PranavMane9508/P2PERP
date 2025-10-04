@@ -2189,7 +2189,7 @@ namespace P2PLibray.Inventory
             catch (Exception)
             {
                 // Yahan logging kar sakte ho
-                return ex;
+                return false;
             }
         }
 

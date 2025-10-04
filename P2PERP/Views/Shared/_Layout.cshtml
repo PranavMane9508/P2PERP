@@ -402,11 +402,31 @@
                                 </ul>
                             </li>
 
-                            <li class="menu-item @(currentAction == "CurrentStockReportDataAMG" ? "active" : "")">
-                                <a href="@Url.Action("CurrentStockReportDataAMG", "Inventory")" class="menu-link">
-                                    <i class="menu-icon tf-icons bi bi-file-earmark-text"></i>
+                            <li class="menu-item @(currentAction.Contains("Reports") ? "active open" : "")">
+                                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                    <i class="menu-icon tf-icons bi bi-bar-chart-line"></i>
                                     <div data-i18n="Reports">Reports</div>
                                 </a>
+                                <ul class="menu-sub">
+                                    <li class="menu-item @(currentAction == "CurrentStockReportDataAMG" ? "active" : "")">
+                                        <a href="@Url.Action("CurrentStockReportAMG", "Inventory")" class="menu-link">
+                                            <i class="menu-icon tf-icons bi bi-file-earmark-text"></i>
+                                            <div data-i18n="Current Stock Reports">Current Stock Reports</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item @(currentAction == "ReceivedMaterialReport" ? "active" : "")">
+                                        <a href="@Url.Action("ReceivedMaterialReportAMG", "Inventory")" class="menu-link">
+                                            <i class="menu-icon tf-icons bi bi-file-earmark-text"></i>
+                                            <div data-i18n="Received Material Reports">Received Material Reports</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item @(currentAction == "InhouseTransferReportVAMG" ? "active" : "")">
+                                        <a href="@Url.Action("InhouseTransferReportVAMG", "Inventory")" class="menu-link">
+                                            <i class="menu-icon tf-icons bi bi-file-earmark-text"></i>
+                                            <div data-i18n="Inhouse Transfer Reports">Inhouse Transfer Reports</div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         }
 
