@@ -851,23 +851,33 @@ namespace P2PLibray.Account
             {
                 while (await dr.ReadAsync())
                 {
-                    qcdetails.Add(new CalendarEventData
+                    try
                     {
-                        QualityCheckCode = dr.IsDBNull(dr.GetOrdinal("QualityCheckCode")) ? string.Empty : dr.GetString(dr.GetOrdinal("QualityCheckCode")),
-                        StatusName = dr.IsDBNull(dr.GetOrdinal("StatusName")) ? string.Empty : dr.GetString(dr.GetOrdinal("StatusName")),
-                        InspectionFrequency = dr.IsDBNull(dr.GetOrdinal("InspectionFrequency")) ? 0 : dr.GetInt32(dr.GetOrdinal("InspectionFrequency")),
-                        GRNItemsCode = dr.IsDBNull(dr.GetOrdinal("GRNItemCode")) ? string.Empty : dr.GetString(dr.GetOrdinal("GRNItemCode")),
-                        SampleQualityChecked = dr.IsDBNull(dr.GetOrdinal("SampleQualityChecked")) ? 0 : dr.GetInt64(dr.GetOrdinal("SampleQualityChecked")),
-                        Quantity = dr.IsDBNull(dr.GetOrdinal("Quantity")) ? 0 : dr.GetInt64(dr.GetOrdinal("Quantity")),
-                        QCAddedBy = dr.IsDBNull(dr.GetOrdinal("QCAddedBy")) ? string.Empty : dr.GetString(dr.GetOrdinal("QCAddedBy")),
-                        QCAddedDate = dr.IsDBNull(dr.GetOrdinal("QCAddedDate")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("QCAddedDate")),
-                        QCFailedAddedBy = dr.IsDBNull(dr.GetOrdinal("QCFailedAddedBy")) ? string.Empty : dr.GetString(dr.GetOrdinal("QCFailedAddedBy")),
-                        QCFailedDate = dr.IsDBNull(dr.GetOrdinal("QCFailedDate")) ? (DateTime?)null : dr.GetDateTime(dr.GetOrdinal("QCFailedDate")),
-                        SampleTestFailed = dr.IsDBNull(dr.GetOrdinal("SampleTestFailed")) ? 0 : dr.GetInt64(dr.GetOrdinal("SampleTestFailed")),
-                        Reason = dr.IsDBNull(dr.GetOrdinal("Reason")) ? string.Empty : dr.GetString(dr.GetOrdinal("Reason")),
-                        ItemCode = dr.IsDBNull(dr.GetOrdinal("ItemCode")) ? string.Empty : dr.GetString(dr.GetOrdinal("ItemCode")),
-                        ItemName = dr.IsDBNull(dr.GetOrdinal("ItemName")) ? string.Empty : dr.GetString(dr.GetOrdinal("ItemName")),
-                    });
+                        qcdetails.Add(new CalendarEventData
+                        {
+                            QualityCheckCode = dr["QualityCheckCode"]?.ToString(),
+                            StatusName = dr["StatusName"]?.ToString(),
+                            GRNItemsCode = dr["GRNItemCode"]?.ToString(),
+                            ItemCode = dr["ItemCode"]?.ToString(),
+                            ItemName = dr["ItemName"]?.ToString(),
+                            QCAddedBy = dr["QCAddedBy"]?.ToString(),
+                            QCFailedAddedBy = dr["QCFailedAddedBy"]?.ToString(),
+                            Reason = dr["Reason"]?.ToString(),
+                            InspectionFrequency = dr["InspectionFrequency"] == DBNull.Value ? 0 : Convert.ToInt32(dr["InspectionFrequency"]),
+                            SampleQualityChecked = dr["SampleQualityChecked"] == DBNull.Value ? 0 : Convert.ToInt64(dr["SampleQualityChecked"]),
+                            SampleTestFailed = dr["SampleTestFailed"] == DBNull.Value ? 0 : Convert.ToInt64(dr["SampleTestFailed"]),
+                            QCAddedDate = dr["QCAddedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["QCAddedDate"]),
+                            QCFailedDate = dr["QCFailedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["QCFailedDate"]),
+                            Quantity = dr["Quantity"] == DBNull.Value ? 0 : Convert.ToInt64(dr["Quantity"]),
+                        });
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error reading QC record: " + ex.Message);
+                        throw;
+                    }
+
                 }
             }
 
