@@ -59,6 +59,12 @@ namespace P2PLibray.Purchase
         }
 
     #endregion
+    public class JITItem
+    {
+        public string ItemCode { get; set; }
+        public int StockRequirementId { get; set; }
+    }
+
 
     #region Akash
     public class PurchaseAMG
@@ -69,7 +75,14 @@ namespace P2PLibray.Purchase
         public string VenderName { get; set; }
         public string CompanyName { get; set; }
         public string TotalAmount { get; set; }
+
+        public string ExpectedDate { get; set; }
+        public string VendorDeliveryDate { get; set; }
+        public string DeliverySpeed { get; set; }
+        public string AffordableRank { get; set; }
+        public string RecommendedQuotation { get; set; }
     }
+
 
     //Properties for Quotation Header Details
     public class PendingQuotViewHeader
@@ -124,6 +137,7 @@ namespace P2PLibray.Purchase
             public string ItemCode { get; set; }
             public decimal RequiredQuantity { get; set; }
         }
+
     #endregion
 
         #region Vaibhavi
@@ -138,6 +152,8 @@ namespace P2PLibray.Purchase
         public decimal GST { get; set; }
         public string UOMName { get; set; }
         public string Description { get; set; }
+        //public decimal ShippingCharges { get; set; }
+
 
 
 
@@ -208,6 +224,7 @@ namespace P2PLibray.Purchase
         public string VendorContact { get; set; }
         public string VendorAddress { get; set; }
         public string InvoiceToCompanyName { get; set; }
+        public decimal ShippingCharges { get; set; }
 
 
     }
@@ -225,6 +242,9 @@ namespace P2PLibray.Purchase
         public decimal CostPerUnit { get; set; }
         public decimal Discount { get; set; }
         public decimal GSTPct { get; set; }
+        public decimal ShippingCharges { get; set; }
+
+
     }
 
 
@@ -237,6 +257,7 @@ namespace P2PLibray.Purchase
         public decimal POCost { get; set; }
         public string CreatedBy { get; set; }
         public string StatusName { get; set; }
+        public string approvedby { get; set; }
     }
 
     public class POHeaderNAM
@@ -272,6 +293,9 @@ namespace P2PLibray.Purchase
         public decimal CostPerUnit { get; set; }
         public decimal Discount { get; set; }     // percent
         public decimal GSTPct { get; set; }       // percent
+        public decimal ShippingCharges { get; set; }       // percent
+
+        
     }
 
 
@@ -281,6 +305,8 @@ namespace P2PLibray.Purchase
 
         #region prathamesh
         public int AllPR { get; set; }
+        public int AllPO { get; set; }
+        public int RejectedPO { get; set; }
         public int Rejected { get; set; }
         public int PendingPR { get; set; }
         public int ApprovedPR { get; set; }
@@ -292,15 +318,11 @@ namespace P2PLibray.Purchase
         public int PendingRFQ { get; set; }
         public string StaffCode { get; set; }
         public string WarehouseName { get; set; }
-       // public string RFQCode { get; set; }
         public string RQCode { get; set; }
         public string VenderName { get; set; }
-        //public string CompanyName { get; set; }
         public DateTime ExpectedDate { get; set; }
         public string PRCode { get; set; }
         public decimal TotalAmount { get; set; }
-       // public string POCode { get; set; }
-        //public DateTime AddedDate { get; set; }
         public string FullName { get; set; }
         public string StatusName { get; set; }
         public string Priority { get; set; }
@@ -308,11 +330,7 @@ namespace P2PLibray.Purchase
 
         public string ItemName { get; set; }
         public string UnitRates { get; set; }
-       // public int RequiredQuantity { get; set; }
-
-        //public DateTime RequiredDate { get; set; }
         public string Description { get; set; }
-       // public string AddedDateString { get; set; }
 
         public string ApprovedRejectedDateString { get; set; }
 
@@ -324,10 +342,7 @@ namespace P2PLibray.Purchase
         #endregion
 
         #region Ashutosh
-        //public string PRCode { get; set; }
-        //public string PRCreatedDate { get; set; }
         public DateTime? PRCreatedDate { get; set; }
-        //public string PRApprovedDate { get; set; }
         public DateTime? PRApprovedDate { get; set; }
         public string ConvertedToRFQ { get; set; }
         public DateTime? RFQCreatedDate { get; set; }
@@ -338,28 +353,22 @@ namespace P2PLibray.Purchase
         public string AddedByName { get; set; }
         public string ApprovedRejectedByName { get; set; }
         public DateTime? ApprovedRejectedDateAT { get; set; }
-        // public string ApprovedRejectedDate { get; set; }
-        // public string ItemName { get; set; } 
-        //public string StatusName { get; set; }
         public string RFQCode { get; set; }
-        // public string WarehouseName { get; set; }
          public DateTime? AddedDateAT { get; set; }
         public string RegisterQuotationCode { get; set; }
-        //public decimal TotalAmount { get; set; }
+        public DateTime? CreatedDateAT { get; set; }
+        public int GRNCount { get; set; }
+        public string GRNCodes { get; set; }
 
+        public DateTime? QuotationDateAT { get; set; }
         public string AddedBy { get; set; }
         public string VendorsInvited { get; set; }
         public string VendorsResponded { get; set; }
         public string ResponseRatePercent { get; set; }
         public string FinalOutcomePOCode { get; set; }
         public string UnitQuantity { get; set; }
-        //public string CostPerUnit { get; set; }
-        //public string Discount { get; set; }
         public string TaxRate { get; set; }
         public string FinalAmount { get; set; }
-        //public string RequiredQuantity { get; set; }
-        //public string UnitRates { get; set; }
-        //public string RegisterQuotationCode { get; set; }
         public string DaysToReceiveQuotation { get; set; }
         public string DaysToApproveQuotation { get; set; }
         public List<Purchase> Items { get; set; }
@@ -367,8 +376,15 @@ namespace P2PLibray.Purchase
 
         #region vaibhavi
         public string AddedDateVK { get; set; }
-    
+        public string ExpDate { get; set; }
+
+
         public int HasUnregisteredVendors { get; set; }
+
+        public int AnyVendor { get; set; }
+        public int HasApproved { get; set; }
+
+
 
 
         #endregion vaibhavi
@@ -396,6 +412,7 @@ namespace P2PLibray.Purchase
         #region Omkar
         public int SRNO { get; set; }
         //Vendor tbl start
+        public int StockReqirementId { get; set; }
         public int VendorId { get; set; }
         public string VendorCode { get; set; }
        // public string VendorName { get; set; }
@@ -494,8 +511,13 @@ namespace P2PLibray.Purchase
         public long WarehousePhone { get; set; }
         public string WarehouseEmail { get; set; }
         public List<string> POItems { get; set; } = new List<string>();
+
+        public List<string> Itemslst { get; set; } = new List<string>();
         public decimal GrandTotal { get; set; }
         public decimal SubAmount { get; set; }
+        public int RequestTypeId { get; set; }
+        public int JITQuantity { get; set; }
+
         #endregion
 
         #region Sandesh
@@ -507,6 +529,6 @@ namespace P2PLibray.Purchase
         public List<string> Vendors { get; set; }
         #endregion
 
-      
+
     }
 }
